@@ -1,0 +1,56 @@
+<app-page-title text="Profile"></app-page-title>
+
+
+<div class="!w-full">
+    <mat-card>
+        <app-profile-row key="Full Name" [value]="userData?.fullName" />
+        <app-profile-row key="Email" [value]="userData?.email" />
+
+
+        <mat-accordion>
+            <mat-expansion-panel class="!shadow-none" [expanded]="true" (opened)="panelOpenState.set(true)"
+                (closed)="panelOpenState.set(false)">
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="!flex !justify-start !items-center gap-2">
+                        <mat-icon svgIcon="github"></mat-icon>
+                        <span class="flex justify-start items-center gap-1">
+                            Github
+                            <mat-icon *ngIf="userData?.github" class="!text-green-500 !text-base"
+                                fontIcon="check_circle"></mat-icon>
+                        </span>
+                    </mat-panel-title>
+                    <mat-panel-description *ngIf="userData?.github" class="!text-xs">
+                        Connected at : {{userData?.github?.connectedAt}}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <ng-container *ngIf="!userData?.github; else removeButton">
+                    <div class="w-full flex justify-center items-center flex-col !py-0 text-primary">
+                        <button (click)="onGithubConnect()" mat-flat-button class="!bg-primary !text-light"
+                            [disabled]="loading">
+                            <ng-container *ngIf="!loading; else loadingTpl">
+                                Connect
+                            </ng-container>
+                            <ng-template #loadingTpl>
+                                <mat-progress-spinner mode="indeterminate" diameter="20" color="accent" strokeWidth="3">
+                                </mat-progress-spinner>
+                            </ng-template>
+                        </button>
+                        <h2 class="!font-semibold !mt-1 !text-xs  md:!text-base lg:!text-lg">Connect Sredio to
+                            Github
+                        </h2>
+                    </div>
+                </ng-container>
+
+                <ng-template #removeButton>
+                    <div class="w-full flex justify-end items-end flex-col   text-primary py-2 pr-3">
+
+                        <button (click)="onRemoveClick()" mat-flat-button class="!bg-primary !text-light">
+                            Remove
+                        </button>
+                        <h5 class="!mt-2 !font-semibold">Username : {{userData?.github?.githubUsername}}</h5>
+                    </div>
+                </ng-template>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </mat-card>
+</div>

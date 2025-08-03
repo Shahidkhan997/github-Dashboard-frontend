@@ -1,0 +1,121 @@
+.container {
+  padding: 20px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.integration-card {
+  margin-bottom: 20px;
+}
+
+.integration-card mat-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.github-icon {
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-connected {
+  color: #4caf50;
+}
+
+.status-disconnected {
+  color: #f44336;
+}
+
+.status-text {
+  font-weight: 500;
+}
+
+.integration-details {
+  margin-top: 16px;
+}
+
+.integration-panel {
+  margin-top: 16px;
+}
+
+.panel-actions {
+  display: flex;
+  gap: 16px;
+  padding: 16px 0;
+}
+
+.connect-section {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.data-section {
+  margin-top: 20px;
+}
+
+.controls-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.integration-select,
+.entity-select {
+  min-width: 200px;
+}
+
+.search-field {
+  flex: 1;
+  min-width: 300px;
+}
+
+.data-stats {
+  margin-bottom: 20px;
+}
+
+.data-stats mat-chip-listbox {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.data-stats mat-chip-option {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.grid-container {
+  width: 100%;
+  height: 600px;
+}
+
+.ag-theme-alpine {
+  --ag-grid-size: 4px;
+  --ag-list-item-height: 28px;
+}
+
+@media (max-width: 768px) {
+  .controls-row {
+    flex-direction: column;
+  }
+  
+  .integration-select,
+  .entity-select,
+  .search-field {
+    width: 100%;
+  }
+  
+  .panel-actions {
+    flex-direction: column;
+  }
+}

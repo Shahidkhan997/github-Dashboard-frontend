@@ -1,0 +1,24 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit.emit()"
+    class="w-full min-h-screen flex justify-center items-center py-8">
+    <mat-card
+        class="max-w-[500px] w-[95%] sm:w-[70%] md:w-[50%] lg:w-[45%] bg-white card_shadow py-7 flex justify-center items-center">
+        <mat-card-title class="mx-auto text-center">{{title}}</mat-card-title>
+
+        <ng-content></ng-content>
+        <mat-card-actions class="w-full !px-6">
+            <button mat-flat-button class="w-full !bg-primary !text-light" [disabled]="loading">
+                <ng-container *ngIf="!loading; else loadingTpl">
+                    {{buttonText}}
+                </ng-container>
+                <ng-template #loadingTpl>
+                    <mat-progress-spinner mode="indeterminate" diameter="20" color="accent" class="mr-2"
+                        strokeWidth="3">
+                    </mat-progress-spinner>
+                </ng-template>
+            </button>
+        </mat-card-actions>
+        <span>{{linkQuestion}} <a [routerLink]="linkUrl"
+                class="text-blue-800 font-medium transition-all ease-in-out duration-300 hover:text-blue-500">{{linkText}}</a>
+        </span>
+    </mat-card>
+</form>

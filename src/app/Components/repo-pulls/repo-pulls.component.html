@@ -1,0 +1,73 @@
+<h4 class="!mt-18">Repo Pull Request</h4>
+<div class="relative" [class.opacity-60]="loading" [class.pointer-events-none]="loading">
+    <app-grid-loader *ngIf="loading"></app-grid-loader>
+    <ag-grid-angular style="width: 100% !important;" domLayout="autoHeight" [theme]="theme"
+        paginationAutoPageSize="true" [suppressCellFocus]="true" [rowData]="rowData" [columnDefs]="columns"
+        [animateRows]="true" />
+    <div *ngIf="totalPages > 0" class="w-full flex !items-center justify-between  bg-white !px-3 !py-2">
+        <!-- Page size dropdown -->
+        <div class="flex items-center space-x-2">
+            <span class="text-gray-500">Rows per page:</span>
+            <select [value]="pageSize" (change)="onPageSizeChange($event)" class="border rounded px-2 py-1 text-sm">
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="75">75</option>
+                <option value="100">100</option>
+
+            </select>
+
+        </div>
+
+        <span class="!text-xs xl:!text-sm text-gray-500">Total Records : <span
+                class="text-gray-600 font-semibold">{{totalRecords}}</span></span>
+        <!-- Page navigation -->
+        <div class="flex items-center space-x-2">
+            <!-- Previous button -->
+            <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1"
+                class="px-2 py-1 border rounded disabled:opacity-30">
+                < </button>
+
+                    <!-- Page numbers -->
+                    <div class="flex space-x-1">
+                        <!-- Always show first page -->
+                        <button (click)="goToPage(1)" [class.bg-blue-500]="currentPage === 1"
+                            [class.text-white]="currentPage === 1"
+                            class="w-8 h-8 rounded border flex items-center justify-center">
+                            1
+                        </button>
+
+                        <!-- Show ellipsis if needed -->
+                        <span *ngIf="currentPage > 3" class="px-2">...</span>
+
+                        <!-- Dynamic page numbers -->
+                        <ng-container *ngFor="let page of getVisiblePages()">
+                            <button *ngIf="page > 1 && page < totalPages" (click)="goToPage(page)"
+                                [class.bg-primary]="currentPage === page" [class.text-white]="currentPage === page"
+                                class="w-8 h-8 rounded border flex items-center justify-center transition-all ease-in-out duration-500 hover:bg-slate-50 ">
+                                {{ page }}
+                            </button>
+                        </ng-container>
+
+                        <!-- Show ellipsis if needed -->
+                        <span *ngIf="currentPage < totalPages - 2" class="px-2">...</span>
+
+                        <!-- Always show last page if different from first -->
+                        <button *ngIf="totalPages > 1" (click)="goToPage(totalPages)"
+                            [class.bg-blue-500]="currentPage === totalPages"
+                            [class.text-white]="currentPage === totalPages"
+                            class="w-8 h-8 rounded border flex items-center justify-center transition-all ease-in-out duration-500 hover:bg-slate-50">
+                            {{ totalPages }}
+                        </button>
+                    </div>
+
+                    <!-- Next button -->
+                    <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages"
+                        class=" px-2 py-1 border rounded disabled:opacity-30">
+                        >
+                    </button>
+        </div>
+    </div>
+</div>

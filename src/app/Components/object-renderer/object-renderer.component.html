@@ -1,0 +1,8 @@
+<div class="!min-h-max flex justify-start items-start flex-col">
+    <button (click)="hanldeExpandRow()" [class.bg-primary]="isVisible" [class.text-light]="isVisible"
+        class="px-3 font-semibold">
+        {{ isVisible ? '[-] Hide details' : '[+] Click to see detail' }}
+    </button>
+
+    <app-object-view *ngIf="isVisible" [data]="data"></app-object-view>
+</div>

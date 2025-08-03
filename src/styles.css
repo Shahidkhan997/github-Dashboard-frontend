@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme {
+  --color-light: rgb(240, 240, 240);
+  --color-primary: rgb(10, 7, 184);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100vw;
+  overflow-x: hidden;
+}
+body {
+  margin: 0;
+  background-color: var(--color-light);
+}
+
+.mdc-notched-outline__notch {
+  border-style: none;
+}
+
+.card_shadow {
+  box-shadow: 0px 0px 10px 0px rgb(180, 180, 180) !important;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.mat-expansion-panel-body {
+  padding: 0px !important;
+}

@@ -1,0 +1,133 @@
+
+<div class="container">
+  <!-- Integration Status Card -->
+  <mat-card class="integration-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon class="github-icon">code</mat-icon>
+        GitHub Integration
+      </mat-card-title>
+      <div class="status-indicator">
+        <mat-icon [class]="integrationStatus ? 'status-connected' : 'status-disconnected'">
+          {{ integrationStatus ? 'check_circle' : 'cancel' }}
+        </mat-icon>
+        <span class="status-text">
+          {{ integrationStatus ? 'Connected' : 'Disconnected' }}
+        </span>
+      </div>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <div *ngIf="integrationStatus" class="integration-details">
+        <p><strong>Connected on:</strong> {{ connectedDate | date:'medium' }}</p>
+        <p><strong>User:</strong> {{ connectedUser }}</p>
+        
+        <!-- Expandable Panel -->
+        <mat-expansion-panel class="integration-panel">
+          <mat-expansion-panel-header>
+            <mat-panel-title>Integration Options</mat-panel-title>
+          </mat-expansion-panel-header>
+          
+          <div class="panel-actions">
+            <button mat-raised-button color="primary" (click)="resyncIntegration()">
+              <mat-icon>sync</mat-icon>
+              Re-sync Integration
+            </button>
+            <button mat-raised-button color="warn" (click)="removeIntegration()">
+              <mat-icon>delete</mat-icon>
+              Remove Integration
+            </button>
+          </div>
+        </mat-expansion-panel>
+      </div>
+      
+      <div *ngIf="!integrationStatus" class="connect-section">
+        <button mat-raised-button color="primary" (click)="connectToGitHub()">
+          <mat-icon>link</mat-icon>
+          Connect to GitHub
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Data View Section -->
+  <div *ngIf="integrationStatus" class="data-section">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>GitHub Data Explorer</mat-card-title>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <!-- Controls -->
+        <div class="controls-row">
+          <mat-form-field appearance="outline" class="integration-select">
+            <mat-label>Active Integration</mat-label>
+            <mat-select [formControl]="activeIntegrationControl" (selectionChange)="onIntegrationChange($event)">
+              <mat-option value="github">GitHub</mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline" class="entity-select">
+            <mat-label>Entity</mat-label>
+            <mat-select [formControl]="entityControl" (selectionChange)="onEntityChange($event)">
+              <mat-option *ngFor="let entity of entities" [value]="entity.value">
+                {{ entity.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline" class="search-field">
+            <mat-label>Global Search</mat-label>
+            <input matInput [formControl]="searchControl" placeholder="Search across all columns...">
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <!-- Data Stats -->
+        <div class="data-stats">
+          <mat-chip-listbox>
+            <mat-chip-option>
+              <mat-icon>business</mat-icon>
+              Organizations: {{ stats.organizations }}
+            </mat-chip-option>
+            <mat-chip-option>
+              <mat-icon>folder</mat-icon>
+              Repositories: {{ stats.repositories }}
+            </mat-chip-option>
+            <mat-chip-option>
+              <mat-icon>commit</mat-icon>
+              Commits: {{ stats.commits }}
+            </mat-chip-option>
+            <mat-chip-option>
+              <mat-icon>merge_type</mat-icon>
+              Pull Requests: {{ stats.pullRequests }}
+            </mat-chip-option>
+            <mat-chip-option>
+              <mat-icon>bug_report</mat-icon>
+              Issues: {{ stats.issues }}
+            </mat-chip-option>
+          </mat-chip-listbox>
+        </div>
+
+        <!-- AG Grid -->
+        <div class="grid-container">
+          <ag-grid-angular
+            #agGrid
+            class="ag-theme-alpine"
+            [rowData]="rowData"
+            [columnDefs]="colDefs"
+            [defaultColDef]="defaultColDef"
+            [pagination]="true"
+            [paginationPageSize]="50"
+            [suppressMenuHide]="true"
+            [animateRows]="true"
+            (gridReady)="onGridReady($event)"
+            (filterChanged)="onFilterChanged()"
+            (sortChanged)="onSortChanged()"
+            style="height: 600px; width: 100%;">
+          </ag-grid-angular>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

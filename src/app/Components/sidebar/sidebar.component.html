@@ -1,0 +1,19 @@
+<mat-sidenav-container class="h-screen ">
+    <mat-sidenav #sidenav mode="side" class="!bg-primary shadow-md " [(opened)]="isSidenavOpen">
+        <mat-toolbar class="!text-light !bg-inherit !text-base md:!text-xl">Menu</mat-toolbar>
+        <mat-nav-list class="!px-1 md:!px-3  text-light">
+            <a class="flex justify-center items-center flex-col md:justify-start md:flex-row gap-4 my-5 !px-1 md:!px-5 py-2 rounded-md transition-all ease-in-out duration-500 hover:bg-blue-300/50"
+                *ngFor="let item of sidebarData" [routerLink]="item.link" routerLinkActive="bg-blue-300/50"
+                [routerLinkActiveOptions]="{ exact: true }">
+                <mat-icon matListIcon>{{ item.icon }}</mat-icon>
+                <span matLine class="text-xs md:text-base font-semibold">{{ item.text }}</span>
+            </a>
+
+            <button (click)="logoutUser()"
+                class="mx-auto md:mx-0 cursor-pointer flex justify-center items-center flex-col md:flex-row gap-4 my-5 !px-1 md:!px-5 py-2 rounded-md transition-all ease-in-out duration-500 hover:bg-red-800">
+                <mat-icon matListIcon>logout</mat-icon>
+                <span matLine class="text-xs md:text-base font-semibold">Logout</span>
+            </button>
+        </mat-nav-list>
+    </mat-sidenav>
+</mat-sidenav-container>

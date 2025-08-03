@@ -1,0 +1,13 @@
+<app-page-title text="Repo Detail"></app-page-title>
+<div class="relative h-max" [class.opacity-60]="loading" [class.pointer-events-none]="loading">
+    <app-grid-loader *ngIf="loading"></app-grid-loader>
+    <ag-grid-angular style="width: 100% !important; height: 100px !important;" [theme]="theme"
+        paginationAutoPageSize="true" [suppressCellFocus]="true" [rowData]="repoRowData" [columnDefs]="repoCols"
+        [animateRows]="true" />
+</div>
+
+<div *ngIf="!loading">
+    <app-repo-pulls *ngIf="pullData" [data]="pullData" />
+    <app-repo-commits *ngIf="commitData" [data]="commitData" />
+    <app-repo-issues *ngIf="issuesData" [data]="issuesData" />
+</div>

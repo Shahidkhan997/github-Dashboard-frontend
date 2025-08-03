@@ -1,0 +1,51 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2 class="login-title">Welcome Back</h2>
+    <p class="login-subtitle">Sign in to your account</p>
+
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          [(ngModel)]="email"
+          name="email"
+          required
+          class="form-input"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          [(ngModel)]="password"
+          name="password"
+          required
+          class="form-input"
+        />
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="!loginForm.form.valid"
+        class="btn-primary"
+      >
+        Login
+      </button>
+    </form>
+
+    <div class="divider">OR</div>
+
+    <button class="btn-github" (click)="loginWithGithub()">
+      <svg class="github-icon" fill="currentColor" viewBox="0 0 24 24">
+        <path
+          d="M12 .5C5.4.5 0 5.9 0 12.5c0 5.3 3.4 9.8 8.2 11.4.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.5-4-1.5-.5-1.2-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 .1 1.5 1.5 1.5 1.5.9 1.5 2.4 1.1 3 .8.1-.7.4-1.1.7-1.4-2.7-.3-5.5-1.4-5.5-6.1 0-1.4.5-2.6 1.3-3.6-.1-.3-.6-1.6.1-3.3 0 0 1-.3 3.3 1.3a11.7 11.7 0 0 1 6 0C18.8 6.4 20 6.8 20 6.8c.7 1.7.2 3 .1 3.3.8 1 1.3 2.2 1.3 3.6 0 4.7-2.8 5.8-5.5 6.1.4.3.8 1 .8 2v3c0 .3.2.8.8.6A12 12 0 0 0 24 12.5C24 5.9 18.6.5 12 .5z"
+        />
+      </svg>
+      Login with GitHub
+    </button>
+  </div>
+</div>

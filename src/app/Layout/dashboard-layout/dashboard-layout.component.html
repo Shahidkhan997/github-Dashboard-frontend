@@ -1,0 +1,22 @@
+<div class="flex h-screen">
+    <!-- Sidebar -->
+    <app-sidebar></app-sidebar>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col justify-start">
+        <!-- Topbar -->
+        <header>
+            <mat-toolbar class="!bg-primary">
+                <button mat-icon-button (click)="toggleSidenav()">
+                    <mat-icon class="!text-light">menu</mat-icon>
+                </button>
+                <span class="ml-4 text-lg font-semibold text-light">Sred.io</span>
+            </mat-toolbar>
+        </header>
+
+        <!-- Router View -->
+        <main class="flex-1 p-6  !overflow-x-hidden">
+            <router-outlet></router-outlet>
+        </main>
+    </div>
+</div>

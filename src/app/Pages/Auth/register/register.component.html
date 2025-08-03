@@ -1,0 +1,84 @@
+<app-auth-layout title="Register - Sred.io" buttonText="Register" [loading]="loading"
+    linkQuestion="Already have account ?" linkText="Signin here" linkUrl="/auth/signin" (onSubmit)="onSubmit()"
+    [formGroup]="registerForm">
+    <mat-card-content>
+
+        <!-- Full Name -->
+        <mat-form-field appearance="outline" class="full-width mt-10">
+            <mat-label>Full Name</mat-label>
+            <input matInput formControlName="fullName" />
+            <mat-error *ngIf="f.fullName.touched && f.fullName.errors?.['required']">
+                Full Name is required
+            </mat-error>
+            <mat-error
+                *ngIf="f.fullName.touched && f.fullName.errors?.['minlength'] && !f.fullName.errors?.['pattern']">
+                {{validationMessages.fullNameMinLengthError}}
+            </mat-error>
+            <mat-error
+                *ngIf="f.fullName.touched && f.fullName.errors?.['maxlength'] && !f.fullName.errors?.['pattern']">
+                {{validationMessages.fullNameMaxLengthError}}
+            </mat-error>
+            <mat-error *ngIf="f.fullName.touched && f.fullName.errors?.['pattern']">
+                {{validationMessages.numberError}}
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Email -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" />
+            <mat-error *ngIf="f.email.touched && f.email.errors?.['required']">
+                Email is required
+            </mat-error>
+            <mat-error *ngIf="f.email.touched && f.email.errors?.['maxlength'] && !f.email.errors?.['pattern']">
+                {{validationMessages.emailMaxLengthError}}
+            </mat-error>
+            <mat-error *ngIf="f.email.touched && f.email.errors?.['pattern']">
+                {{validationMessages.email}}
+            </mat-error>
+        </mat-form-field>
+
+        <!-- Password -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" />
+            <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
+                [attr.aria-label]="'Toggle password visibility'" [attr.aria-pressed]="!hidePassword">
+                <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+
+            <mat-error *ngIf="f.password.touched && f.password.errors?.['required']">
+                Password is required
+            </mat-error>
+            <mat-error
+                *ngIf="f.password.touched && f.password.errors?.['minlength'] && !f.password.errors?.['pattern']">
+                {{ validationMessages.passwordMinLengthError }}
+            </mat-error>
+            <mat-error
+                *ngIf="f.password.touched && f.password.errors?.['maxlength'] && !f.password.errors?.['pattern']">
+                {{ validationMessages.passwordMaxLengthError }}
+            </mat-error>
+            <mat-error *ngIf="f.password.touched && f.password.errors?.['pattern']">
+                {{ validationMessages.passwordPatternError }}
+            </mat-error>
+        </mat-form-field>
+
+
+        <!-- Confirm Password -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Confirm Password</mat-label>
+            <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword" />
+            <button type="button" mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword"
+                [attr.aria-label]="'Toggle password visibility'" [attr.aria-pressed]="!hideConfirmPassword">
+                <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-error *ngIf="f.confirmPassword.touched && f.confirmPassword.errors?.['required']">
+                Confirm Password is required
+            </mat-error>
+            <mat-error *ngIf="f.confirmPassword.touched && f.confirmPassword.errors?.['passwordMismatch']">
+                Password and Confirm Password must match
+            </mat-error>
+        </mat-form-field>
+
+    </mat-card-content>
+</app-auth-layout>
